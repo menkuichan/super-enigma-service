@@ -54,6 +54,15 @@ mongoose.connection.once('open', () => {
       ctx.body = movies;
 
       next();
+    })
+    .get('/movies/:id', async (ctx, next) => {
+      const { id } = ctx.params;
+      console.log(id);
+      const movie = await Movie.findOne({ id });
+      ctx.status = 200;
+      ctx.body = movie;
+
+      next();
     });
 
   app.use(router.routes());
