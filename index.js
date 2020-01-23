@@ -46,10 +46,10 @@ mongoose.connection.once('open', () => {
     .get('/movies', async (ctx, next) => {
       const { page, perPage } = ctx.query;
 
-      const movies = await Movie.find({}, null, {
-        skip: (page * perPage) - perPage,
-        limit: +perPage
-      });
+      const movies = await Movie.find()
+        .skip((page * perPage) - perPage)
+        .limit(+perPage);
+
       ctx.status = 200;
       ctx.body = movies;
 
@@ -57,7 +57,6 @@ mongoose.connection.once('open', () => {
     })
     .get('/movies/:id', async (ctx, next) => {
       const { id } = ctx.params;
-      console.log(id);
       const movie = await Movie.findOne({ id });
       ctx.status = 200;
       ctx.body = movie;
