@@ -45,7 +45,6 @@ mongoose.connection.once('open', () => {
   router
     .get('/movies', async (ctx, next) => {
       const { page, perPage } = ctx.query;
-      console.log('params', page, perPage);
 
       const movies = await Movie.find({}, null, {
         skip: (page * perPage) - perPage,
@@ -57,9 +56,7 @@ mongoose.connection.once('open', () => {
       next();
     });
 
-  app
-    .use(router.routes())
-    .use(router.allowedMethods());
+  app.use(router.routes());
 });
 
 app.listen(process.env.APP_PORT, () => {

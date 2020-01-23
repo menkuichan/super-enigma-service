@@ -1,3 +1,1 @@
 # super-enigma-service
-
-## Prerequisites
