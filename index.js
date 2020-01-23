@@ -5,30 +5,12 @@ const mongoose = require('mongoose');
 const app = new Koa();
 const router = new Router();
 
+const { getMovies, getMovieById } = require('./src/controllers/movie');
+const { getGenres, getGenreById } = require('./src/controllers/genre');
+
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
-
-const movieSchema = new mongoose.Schema({
-  id: Number,
-  title: String,
-  overview: String,
-  release_date: String,
-  genre_ids: [{
-    type: Number,
-  }],
-  vote_average: Number,
-  popularity: Number,
-  original_language: String,
-  vote_count: Number,
-  original_title: String,
-  poster_path: String,
-  adult: Boolean,
-  backdrop_path: String,
-  video: Boolean,
-});
-
-const Movie = mongoose.model('Movie', movieSchema);
 
 mongoose.connect(process.env.DB_URI, {
   useNewUrlParser: true,
@@ -43,26 +25,10 @@ mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB');
 
   router
-    .get('/movies', async (ctx, next) => {
-      const { page, perPage } = ctx.query;
-
-      const movies = await Movie.find()
-        .skip((page * perPage) - perPage)
-        .limit(+perPage);
-
-      ctx.status = 200;
-      ctx.body = movies;
-
-      next();
-    })
-    .get('/movies/:id', async (ctx, next) => {
-      const { id } = ctx.params;
-      const movie = await Movie.findOne({ id });
-      ctx.status = 200;
-      ctx.body = movie;
-
-      next();
-    });
+    .get('/movies', getMovies)
+    .get('/movies/:id', getMovieById)
+    .get('/genres', getGenres)
+    .get('/genres/:id', getGenreById);
 
   app.use(router.routes());
 });
