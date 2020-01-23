@@ -1,0 +1,32 @@
+{
+  "name": "super-enigma-service",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IlonaMenkui/super-enigma-service.git"
+  },
+  "keywords": [
+    "be",
+    "service"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IlonaMenkui/super-enigma-service/issues"
+  },
+  "homepage": "https://github.com/IlonaMenkui/super-enigma-service#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "koa": "^2.11.0",
+    "koa-router": "^8.0.6",
+    "mongoose": "^5.8.9"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
