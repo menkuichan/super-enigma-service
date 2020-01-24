@@ -25,7 +25,7 @@ DB_URI=mongodb://localhost:27017/super-enigma-db
 
 ## Installation
 
-Use the package manager Yarn to install all the dependencies of data-worker.
+Use the package manager Yarn to install all the dependencies of super-enigma-service.
 
 ```
 yarn install
