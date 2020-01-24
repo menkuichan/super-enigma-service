@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Download Node.js not lower than version 8.10, [Yarn](https://yarnpkg.com/). Also install and run on your local machine [data-worker](https://github.com/IlonaMenkui/data-worker) in order to populate your database.
+Download Node.js not lower than version 8.10, [Yarn](https://yarnpkg.com/) and [MongoDB Docker image](https://hub.docker.com/_/mongo). Also install and run on your local machine [data-worker](https://github.com/IlonaMenkui/data-worker) in order to populate your database.
 
 ### Clone
 
@@ -42,6 +42,16 @@ yarn start
 Runs the app.<br>
 
 The app will reload if you make changes to the code.<br>
+
+## Run Docker container with MongoDB
+
+You can use this application without running data-worker every time (if you don't need updated data). You may run data-worker once just for populating the database. But you need MongoDB to always be up and running.
+
+Run your docker image with MongoDB:
+```
+docker run --name some-mongo -d mongo:tag
+```
+... where ```some-mongo``` is the name you want to assign to your container and ```tag``` is the tag specifying the MongoDB version you want.
 
 ## Available endpoints
 
