@@ -9,12 +9,12 @@ const { getMovies, getMovieById } = require('./src/controllers/movie');
 const { getGenres, getGenreById } = require('./src/controllers/genre');
 
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
+  require('dotenv').config(); // eslint-disable-line
 }
 
 mongoose.connect(process.env.DB_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 
 mongoose.connection.on('error', (error) => {
