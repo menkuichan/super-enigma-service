@@ -5,6 +5,7 @@ SERVICE_NAME = super-enigma-service
 DB_PORT = 27017
 DB_NAME = mongodb
 IMAGE_VERSION = develop
+SERVICE_PORT = 3000
 
 build-image:
 	@ echo "---> Building service Docker image ..."
@@ -23,7 +24,7 @@ stop-mongo:
 
 run-service:
 	@ echo "---> Running service Docker container ..."
-	@ docker run -P -d --rm --name $(SERVICE_NAME) --link $(DB_NAME):db $(IMAGE_URI):$(IMAGE_VERSION)
+	@ docker run -p $(SERVICE_PORT):$(SERVICE_PORT) -d --rm --name $(SERVICE_NAME) --link $(DB_NAME):db $(IMAGE_URI):$(IMAGE_VERSION)
 .PHONY: run-service
 
 stop-service:
