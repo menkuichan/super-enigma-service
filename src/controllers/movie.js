@@ -1,34 +1,36 @@
 const { Movie } = require('../models/movie');
 
-const getMovies = async (ctx, next) => {
-  const { page, perPage } = ctx.query;
+const getMovies = async (ctx) => {
+  try {
+    const { page, perPage } = ctx.query;
 
-  const movies = await Movie.find()
-    .skip((page * perPage) - perPage)
-    .limit(+perPage);
+    const movies = await Movie.find()
+      .skip((page * perPage) - perPage)
+      .limit(+perPage);
 
-  if (movies) {
     ctx.status = 200;
     ctx.body = movies;
-  } else {
-    ctx.throw(404, 'Movies not found');
+  } catch (error) {
+    ctx.status = 500;
+    ctx.body = error.message;
   }
-
-  next();
 };
 
-const getMovieById = async (ctx, next) => {
+const getMovieById = async (ctx) => {
   const { id } = ctx.params;
-  const movie = await Movie.findOne({ id });
+  try {
+    const movie = await Movie.findOne({ id });
 
-  if (movie) {
-    ctx.status = 200;
-    ctx.body = movie;
-  } else {
-    ctx.throw(404, 'Movie not found');
+    if (movie) {
+      ctx.status = 200;
+      ctx.body = movie;
+    } else {
+      ctx.throw(404, 'Movie not found');
+    }
+  } catch (error) {
+    ctx.status = error.status || 500;
+    ctx.body = error.message;
   }
-
-  next();
 };
 
 module.exports = { getMovies, getMovieById };
