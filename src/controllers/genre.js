@@ -17,12 +17,10 @@ const getGenreById = async (ctx) => {
     const { id } = ctx.params;
     const genre = await Genre.findOne({ id });
 
-    if (genre) {
-      ctx.status = 200;
-      ctx.body = genre;
-    } else {
-      ctx.assert(genre, 404, 'Genre not found');
-    }
+    ctx.assert(genre, 404, 'Genre not found');
+
+    ctx.status = 200;
+    ctx.body = genre;
   } catch (error) {
     ctx.status = error.status || 500;
     ctx.body = error.message;

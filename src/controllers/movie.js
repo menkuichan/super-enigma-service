@@ -21,12 +21,10 @@ const getMovieById = async (ctx) => {
   try {
     const movie = await Movie.findOne({ id });
 
-    if (movie) {
-      ctx.status = 200;
-      ctx.body = movie;
-    } else {
-      ctx.throw(404, 'Movie not found');
-    }
+    ctx.throw(404, 'Movie not found');
+
+    ctx.status = 200;
+    ctx.body = movie;
   } catch (error) {
     ctx.status = error.status || 500;
     ctx.body = error.message;
