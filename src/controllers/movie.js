@@ -7,20 +7,28 @@ const getMovies = async (ctx, next) => {
     .skip((page * perPage) - perPage)
     .limit(+perPage);
 
-  ctx.status = 200;
-  ctx.body = movies;
+  if (movies) {
+    ctx.status = 200;
+    ctx.body = movies;
+  } else {
+    ctx.throw(404, 'Movies not found');
+  }
 
   next();
-}
+};
 
 const getMovieById = async (ctx, next) => {
   const { id } = ctx.params;
   const movie = await Movie.findOne({ id });
 
-  ctx.status = 200;
-  ctx.body = movie;
+  if (movie) {
+    ctx.status = 200;
+    ctx.body = movie;
+  } else {
+    ctx.throw(404, 'Movie not found');
+  }
 
   next();
-}
+};
 
 module.exports = { getMovies, getMovieById };
