@@ -9,6 +9,7 @@ const getMovies = async (ctx) => {
     const movies = await Movie.find({
       release_date: new RegExp(year, 'i'),
       title: new RegExp(title, 'i'),
+      original_language: new RegExp(language, 'i'),
     })
       .skip((page * perPage) - perPage)
       .limit(+perPage);
