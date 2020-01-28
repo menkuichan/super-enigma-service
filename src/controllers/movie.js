@@ -2,9 +2,14 @@ const { Movie } = require('../models/movie');
 
 const getMovies = async (ctx) => {
   try {
-    const { page, perPage } = ctx.query;
+    const {
+      sortBy, page, perPage, year, adult, language, popularity, title,
+    } = ctx.query;
 
-    const movies = await Movie.find()
+    const movies = await Movie.find({
+      release_date: new RegExp(year, 'i'),
+      title: new RegExp(title, 'i'),
+    })
       .skip((page * perPage) - perPage)
       .limit(+perPage);
 
