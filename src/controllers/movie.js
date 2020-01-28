@@ -21,7 +21,7 @@ const getMovieById = async (ctx) => {
   try {
     const movie = await Movie.findOne({ id });
 
-    ctx.throw(404, 'Movie not found');
+    ctx.assert(movie, 404, 'Movie not found');
 
     ctx.status = 200;
     ctx.body = movie;
