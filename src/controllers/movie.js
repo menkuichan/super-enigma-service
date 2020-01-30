@@ -1,16 +1,14 @@
 const { Movie } = require('../models/movie');
 
 const createSortObject = (sortQuery) => {
-  let result = {};
+  const result = {};
   if (sortQuery) {
     const arraySort = sortQuery.split('.');
     const { paths } = Movie.schema;
     const pathsKeys = Object.keys(paths);
-    pathsKeys.forEach((key) => {
-      if ([arraySort[0]] && arraySort[1] && key === arraySort[0]) {
-        result = { [arraySort[0]]: arraySort[1] === 'asc' ? 1 : -1 };
-      }
-    });
+    if ([arraySort[0]] && arraySort[1] && pathsKeys.includes(arraySort[0])) {
+      result[arraySort[0]] = arraySort[1] === 'asc' ? 1 : -1;
+    }
   }
   return result;
 };
