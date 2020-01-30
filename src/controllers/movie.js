@@ -1,18 +1,25 @@
 const { Movie } = require('../models/movie');
 
+const createSortObject = (string) => {
+  const arraySort = string.split('.');
+  return { [arraySort[0]]: arraySort[1] === 'asc' ? 1 : -1 };
+};
+
 const getMovies = async (ctx) => {
   try {
     const {
       sortBy, page, perPage, year, adult, language, popularity, title,
     } = ctx.query;
-
     const movies = await Movie.find({
       release_date: new RegExp(year, 'i'),
       title: new RegExp(title, 'i'),
-      original_language: language,
+      original_language: language || new RegExp('', 'i'),
+      adult: adult || false,
+      popularity: popularity ? { $gt: popularity } : { $gt: 0 },
     })
       .skip((page * perPage) - perPage)
-      .limit(+perPage);
+      .limit(+perPage)
+      .sort(createSortObject(sortBy));
 
     ctx.status = 200;
     ctx.body = movies;
