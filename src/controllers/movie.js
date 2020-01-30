@@ -1,8 +1,18 @@
 const { Movie } = require('../models/movie');
 
-const createSortObject = (string) => {
-  const arraySort = string.split('.');
-  return { [arraySort[0]]: arraySort[1] === 'asc' ? 1 : -1 };
+const createSortObject = (sortQuery) => {
+  let result = {};
+  if (sortQuery) {
+    const arraySort = sortQuery.split('.');
+    const { paths } = Movie.schema;
+    const pathsKeys = Object.keys(paths);
+    pathsKeys.forEach((key) => {
+      if ([arraySort[0]] && arraySort[1] && key === arraySort[0]) {
+        result = { [arraySort[0]]: arraySort[1] === 'asc' ? 1 : -1 };
+      }
+    });
+  }
+  return result;
 };
 
 const getMovies = async (ctx) => {
