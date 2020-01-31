@@ -1,18 +1,5 @@
 const { Movie } = require('../models/movie');
-
-const movieKeys = [
-  'id',
-  'title',
-  'year',
-  'genre',
-  'vote_average',
-  'popularity',
-  'lang',
-  'vote_count',
-  'original_title',
-  'adult',
-  'video',
-];
+const { movieKeys } = require('../constants');
 
 const createFindObject = (queryObject) => {
   const result = {};
