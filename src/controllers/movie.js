@@ -1,28 +1,53 @@
 const { Movie } = require('../models/movie');
 
+const movieKeys = [
+  'id',
+  'title',
+  'year',
+  'genre',
+  'vote_average',
+  'popularity',
+  'lang',
+  'vote_count',
+  'original_title',
+  'adult',
+  'video',
+];
 
 const createFindObject = (queryObject) => {
   const result = {};
-  for (const key in queryObject) { //eslint-disable-line
-    if (queryObject.hasOwnProperty(key)) { //eslint-disable-line
+  const keys = Object.keys(queryObject);
+  keys.forEach((key) => {
+    if (movieKeys.includes(key)) {
       switch (key) {
         case 'popularity':
-          result[key] = { $gt: queryObject[key] };
+        case 'vote_count':
+          if (Number(queryObject[key])) result[key] = { $gt: queryObject[key] };
           break;
         case 'title':
+        case 'original_title':
           result[key] = new RegExp(queryObject[key], 'i');
           break;
-        case 'release_date':
-          result[key] = new RegExp(queryObject[key], 'i');
+        case 'year': {
+          const m = queryObject[key].match(/\d{4}/);
+          if (m && m[0]) result.release_date = new RegExp(m[0], 'i');
           break;
+        }
         case 'adult':
+        case 'video':
           result[key] = (queryObject[key] === 'true');
           break;
+        case 'genre':
+          result.genre_ids = { $in: [queryObject[key]] };
+          break;
+        case 'lang':
+          result.original_language = queryObject[key];
+          break;
         default:
-          result[key] = queryObject[key];
+          break;
       }
     }
-  }
+  });
   return result;
 };
 
@@ -44,13 +69,14 @@ const getMovies = async (ctx) => {
     const {
       sortBy, page, perPage, ...queryObject
     } = ctx.query;
+    const count = await Movie.countDocuments(createFindObject(queryObject));
     const movies = await Movie.find(createFindObject(queryObject))
       .skip((page * perPage) - perPage)
       .limit(+perPage)
       .sort(createSortObject(sortBy));
 
     ctx.status = 200;
-    ctx.body = movies;
+    ctx.body = { movies, page, totalPages: Math.ceil(count / perPage) };
   } catch (error) {
     ctx.status = 500;
     ctx.body = error.message;
