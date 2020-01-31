@@ -1,5 +1,32 @@
 const { Movie } = require('../models/movie');
 
+
+const createFindObject = (queryObject) => {
+  const result = {};
+  for (const key in queryObject) {
+    console.log(queryObject[key]);
+    switch (key) {
+      case 'popularity':
+        result[key] = { $gt: queryObject[key] };
+        break;
+      case 'title':
+        console.log(1);
+        result[key] = new RegExp(queryObject[key], 'i');
+        break;
+      case 'release_date':
+        result[key] = new RegExp(queryObject[key], 'i');
+        break;
+      case 'adult':
+        result[key] = (queryObject[key] === 'true');
+        break;
+      default:
+        result[key] = queryObject[key];
+    }
+  }
+  console.log(result);
+  return result;
+};
+
 const createSortObject = (sortQuery) => {
   const result = {};
   if (sortQuery) {
@@ -16,15 +43,9 @@ const createSortObject = (sortQuery) => {
 const getMovies = async (ctx) => {
   try {
     const {
-      sortBy, page, perPage, year, adult, language, popularity, title,
+      sortBy, page, perPage, ...queryObject
     } = ctx.query;
-    const movies = await Movie.find({
-      release_date: new RegExp(year, 'i'),
-      title: new RegExp(title, 'i'),
-      original_language: language || new RegExp('', 'i'),
-      adult: adult || false,
-      popularity: popularity ? { $gt: popularity } : { $gt: 0 },
-    })
+    const movies = await Movie.find(createFindObject(queryObject))
       .skip((page * perPage) - perPage)
       .limit(+perPage)
       .sort(createSortObject(sortBy));
