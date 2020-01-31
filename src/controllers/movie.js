@@ -3,27 +3,26 @@ const { Movie } = require('../models/movie');
 
 const createFindObject = (queryObject) => {
   const result = {};
-  for (const key in queryObject) {
-    console.log(queryObject[key]);
-    switch (key) {
-      case 'popularity':
-        result[key] = { $gt: queryObject[key] };
-        break;
-      case 'title':
-        console.log(1);
-        result[key] = new RegExp(queryObject[key], 'i');
-        break;
-      case 'release_date':
-        result[key] = new RegExp(queryObject[key], 'i');
-        break;
-      case 'adult':
-        result[key] = (queryObject[key] === 'true');
-        break;
-      default:
-        result[key] = queryObject[key];
+  for (const key in queryObject) { //eslint-disable-line
+    if (queryObject.hasOwnProperty(key)) { //eslint-disable-line
+      switch (key) {
+        case 'popularity':
+          result[key] = { $gt: queryObject[key] };
+          break;
+        case 'title':
+          result[key] = new RegExp(queryObject[key], 'i');
+          break;
+        case 'release_date':
+          result[key] = new RegExp(queryObject[key], 'i');
+          break;
+        case 'adult':
+          result[key] = (queryObject[key] === 'true');
+          break;
+        default:
+          result[key] = queryObject[key];
+      }
     }
   }
-  console.log(result);
   return result;
 };
 
