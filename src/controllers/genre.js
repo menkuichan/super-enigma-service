@@ -1,5 +1,7 @@
 const { Genre } = require('../models/genre');
 
+const log = require('../log');
+
 const getGenres = async (ctx) => {
   try {
     const genres = await Genre.find();
@@ -7,8 +9,8 @@ const getGenres = async (ctx) => {
     ctx.status = 200;
     ctx.body = genres;
   } catch (error) {
-    ctx.status = 500;
-    ctx.body = error.message;
+    log.error(error, 'Error during getting genres');
+    throw error;
   }
 };
 
@@ -22,8 +24,8 @@ const getGenreById = async (ctx) => {
     ctx.status = 200;
     ctx.body = genre;
   } catch (error) {
-    ctx.status = error.status || 500;
-    ctx.body = error.message;
+    log.error(error, 'Error during getting genres by id');
+    throw error;
   }
 };
 
