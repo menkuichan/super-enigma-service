@@ -1,4 +1,4 @@
-const movieKeys = [
+const movieQueryParams = [
   'id',
   'title',
   'year',
@@ -12,4 +12,4 @@ const movieKeys = [
   'video',
 ];
 
-module.exports = { movieKeys };
+module.exports = { movieQueryParams };

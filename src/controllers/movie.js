@@ -1,11 +1,11 @@
 const { Movie } = require('../models/movie');
-const { movieKeys } = require('../constants');
+const { movieQueryParams } = require('../constants');
 
 const createFindObject = (queryObject) => {
   const result = {};
   const keys = Object.keys(queryObject);
   keys.forEach((key) => {
-    if (movieKeys.includes(key)) {
+    if (movieQueryParams.includes(key)) {
       switch (key) {
         case 'popularity':
         case 'vote_count':
