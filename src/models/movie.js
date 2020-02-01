@@ -5,9 +5,7 @@ const movieSchema = new mongoose.Schema({
   title: String,
   overview: String,
   release_date: String,
-  genre_ids: [{
-    type: Number,
-  }],
+  genre_ids: [Number],
   vote_average: Number,
   popularity: Number,
   original_language: String,
