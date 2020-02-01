@@ -63,6 +63,7 @@ const getMovies = async (ctx) => {
       .limit(+perPage)
       .sort(createSortObject(sortBy));
 
+    log.info('Successfully get movies');
     ctx.status = 200;
     ctx.body = { movies, page, totalPages: Math.ceil(count / perPage) };
   } catch (error) {
@@ -78,6 +79,7 @@ const getMovieById = async (ctx) => {
 
     ctx.assert(movie, 404, 'Movie not found');
 
+    log.info('Successfully get movie by id');
     ctx.status = 200;
     ctx.body = movie;
   } catch (error) {
