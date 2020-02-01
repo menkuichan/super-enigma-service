@@ -1,14 +1,17 @@
 const { Genre } = require('../models/genre');
 
+const log = require('../log');
+
 const getGenres = async (ctx) => {
   try {
     const genres = await Genre.find();
 
+    log.info('Successfully get genres');
     ctx.status = 200;
     ctx.body = genres;
   } catch (error) {
-    ctx.status = 500;
-    ctx.body = error.message;
+    log.error(error, 'Error during getting genres');
+    throw error;
   }
 };
 
@@ -19,11 +22,12 @@ const getGenreById = async (ctx) => {
 
     ctx.assert(genre, 404, 'Genre not found');
 
+    log.info('Successfully get genre by id');
     ctx.status = 200;
     ctx.body = genre;
   } catch (error) {
-    ctx.status = error.status || 500;
-    ctx.body = error.message;
+    log.error(error, 'Error during getting genres by id');
+    throw error;
   }
 };
 

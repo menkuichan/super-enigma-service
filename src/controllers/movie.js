@@ -1,5 +1,6 @@
 const { Movie } = require('../models/movie');
 const { movieQueryParams } = require('../constants');
+const log = require('../log');
 
 const createFindObject = (queryObject) => {
   const result = {};
@@ -62,11 +63,12 @@ const getMovies = async (ctx) => {
       .limit(+perPage)
       .sort(createSortObject(sortBy));
 
+    log.info('Successfully get movies');
     ctx.status = 200;
     ctx.body = { movies, page, totalPages: Math.ceil(count / perPage) };
   } catch (error) {
-    ctx.status = 500;
-    ctx.body = error.message;
+    log.error(error, 'Error during getting movies');
+    throw error;
   }
 };
 
@@ -77,11 +79,12 @@ const getMovieById = async (ctx) => {
 
     ctx.assert(movie, 404, 'Movie not found');
 
+    log.info('Successfully get movie by id');
     ctx.status = 200;
     ctx.body = movie;
   } catch (error) {
-    ctx.status = error.status || 500;
-    ctx.body = error.message;
+    log.error(error, 'Error during getting movies by id');
+    throw error;
   }
 };
 
