@@ -1,6 +1,8 @@
 const Koa = require('koa');
 const Router = require('koa-router');
 const mongoose = require('mongoose');
+const koaBunyanLogger = require('koa-bunyan-logger');
+const koaError = require('koa-error');
 
 const app = new Koa();
 const router = new Router();
@@ -9,6 +11,13 @@ const { getMovies, getMovieById } = require('./src/controllers/movie');
 const { getGenres, getGenreById } = require('./src/controllers/genre');
 
 const log = require('./src/log');
+
+app.use(koaBunyanLogger(log));
+app.use(koaBunyanLogger.requestLogger());
+
+app.use(koaError({
+  accepts: ['json'],
+}));
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config(); // eslint-disable-line
