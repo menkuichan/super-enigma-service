@@ -31,3 +31,8 @@ stop-service:
 	@ echo "---> Stopping service Docker container ..."
 	@ docker stop $(SERVICE_NAME)
 .PHONY: stop-service
+
+image-publish:
+	@ echo "---> Publishing Docker image ..."
+	@ docker push $(IMAGE_URI)/$(SERVICE_NAME):$(IMAGE_VERSION)
+.PHONY: image-publish
