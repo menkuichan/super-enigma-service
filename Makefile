@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 WORKDIR := $(PWD)
-IMAGE_URI = IlonaMenkui/super-enigma-service
+IMAGE_URI = menkuican/super-enigma-service
 SERVICE_NAME = super-enigma-service
 DB_PORT = 27017
 DB_NAME = mongodb
