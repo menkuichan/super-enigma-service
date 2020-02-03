@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 WORKDIR := $(PWD)
-IMAGE_URI = ilonamenkui/super-enigma-service
+IMAGE_URI = menkuican/super-enigma-service
 SERVICE_NAME = super-enigma-service
 DB_PORT = 27017
 DB_NAME = mongodb
@@ -31,3 +31,8 @@ stop-service:
 	@ echo "---> Stopping service Docker container ..."
 	@ docker stop $(SERVICE_NAME)
 .PHONY: stop-service
+
+image-publish:
+	@ echo "---> Publishing Docker image ..."
+	@ docker push $(IMAGE_URI):$(IMAGE_VERSION)
+.PHONY: image-publish
