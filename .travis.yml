@@ -11,7 +11,7 @@ env:
 
 script:
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  - make build-image image-publish IMAGE_VERSION=$TRAVIS_BRANCH
+  - make build-image image-publish
 
 branches:
   only:
