@@ -53,6 +53,48 @@ docker run --name some-mongo -d mongo:tag
 ```
 ... where ```some-mongo``` is the name you want to assign to your container and ```tag``` is the tag specifying the MongoDB version you want.
 
+... or run the make utility in the project directory:
+```
+make run-mongo
+```
+
+## Run Docker container with project and MongoDB
+First, make sure that [MongoDB is running](#run-db).
+Then you need to build a docker image.
+```
+make build-image
+```
+
+In the end, run the docker container with server.
+```
+docker run -P -d --rm --env TMDB_API_KEY=YOURSECRETAPIKEY --name service-name --link db-name:db image-uri:image-version
+```
+... where ```service-name``` is the server name, ```db-name``` is the database name and so on.
+
+... or run the following command:
+
+```
+make run-service
+```
+
+## Stop Docker container with project and MongoDB
+To stop the service use:
+```
+docker stop service-name
+```
+... or:
+```
+make stop-service
+```
+And to stop Docker container with MongoDB use:
+```
+docker stop some-mongo
+```
+... or:
+```
+make stop-mongo
+```
+
 ## Available commands in the Makefile
 
 `build-image` - build an image from a Dockerfile with the service.
