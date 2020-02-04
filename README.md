@@ -53,6 +53,20 @@ docker run --name some-mongo -d mongo:tag
 ```
 ... where ```some-mongo``` is the name you want to assign to your container and ```tag``` is the tag specifying the MongoDB version you want.
 
+## Available commands in the Makefile
+
+`build-image` - build an image from a Dockerfile with the service.
+
+`run-service` - run a docker container with the service.
+
+`stop-service` - stop running container with the service.
+
+`image-publish` - push an image with the service to a registry.
+
+`run-mongo` - run a docker container with MongoDB.
+
+`stop-mongo` - stop running container with MongoDB.
+
 ## Available endpoints
 
 `GET /movies` - get a list of movies.
