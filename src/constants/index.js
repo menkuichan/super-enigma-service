@@ -1,5 +1,4 @@
 const movieQueryParams = [
-  'id',
   'title',
   'year',
   'genre',
