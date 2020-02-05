@@ -82,7 +82,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Genre'
+              $ref: '#/definitions/Movie'
         400:
           description: "Error during getting movies"
   /movies/{id}:
