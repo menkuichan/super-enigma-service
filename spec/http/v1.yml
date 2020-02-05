@@ -26,11 +26,6 @@ paths:
         description: "Query for sorting movies"
         required: false
         type: "string"
-      - name: "id"
-        in: "query"
-        description: "Movie id"
-        required: false
-        type: "number"
       - name: "title"
         in: "query"
         description: "Movies title"
