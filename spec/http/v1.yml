@@ -1,0 +1,301 @@
+swagger: "2.0"
+info:
+  description: "REST API service that will give you a quick and easy way to get data from the database"
+  version: "1.0.0"
+  title: "super-enigma-service"
+paths:
+  /movies:
+    get:
+      tags:
+      - "movies"
+      summary: "Gets a list of movies"
+      operationId: "getMovies"
+      parameters:
+      - name: "page"
+        in: "query"
+        description: "Page number"
+        required: false
+        type: "number"
+      - name: "perPage"
+        in: "query"
+        description: "Number of movies per page"
+        required: false
+        type: "number"
+      - name: "sortBy"
+        in: "query"
+        description: "Query for sorting movies"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "query"
+        description: "Movie id"
+        required: false
+        type: "number"
+      - name: "title"
+        in: "query"
+        description: "Movies title"
+        required: false
+        type: "string"
+      - name: "year"
+        in: "query"
+        description: "Movies year"
+        required: false
+        type: "number"
+      - name: "genre"
+        in: "query"
+        description: "Movies genre"
+        required: false
+        type: "number"
+      - name: "vote_average"
+        in: "query"
+        description: "Movies vote average"
+        required: false
+        type: "number"
+      - name: "popularity"
+        in: "query"
+        description: "Movies popularity"
+        required: false
+        type: "number"
+      - name: "lang"
+        in: "query"
+        description: "Movies language"
+        required: false
+        type: "string"
+      - name: "vote_count"
+        in: "query"
+        description: "Movies vote count"
+        required: false
+        type: "number"
+      - name: "original_title"
+        in: "query"
+        description: "Movies original title"
+        required: false
+        type: "string"
+      - name: "video"
+        in: "query"
+        description: "If true, return movies with video"
+        required: false
+        type: "boolean"
+      - name: "adult"
+        in: "query"
+        description: "If true, return adult movies"
+        required: false
+        type: "boolean"
+      responses:
+        200:
+          description: 'Successfully get movies'
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                  example: "5e394c208c4e6b7a3ce6bcdd"
+                genre_ids:
+                  type: array
+                  items:
+                    type: number
+                    example: 16, 18
+                popularity:
+                  type: number
+                  example: 437.351,
+                vote_count:
+                  type: number
+                  example: 2192
+                video:
+                  type: number
+                  example: false,
+                poster_path:
+                  type: string
+                  example: "/xBHvZcjRiWyobQ9kxBhO6B2dtRI.jpg"
+                id:
+                  type: number
+                  example: 419704,
+                adult:
+                  type: boolean
+                  example: false,
+                backdrop_path:
+                  type: string
+                  example: "/5BwqwxMEjeFtdknRV792Svo0K1v.jpg"
+                original_language:
+                  type: string
+                  example: "en"
+                original_title:
+                  type: string
+                  example: "Ad Astra"
+                title:
+                  type: string
+                  example: "Ad Astra"
+                vote_average:
+                  type: number
+                  example: 6
+                release_date:
+                  type: string
+                  example: "2019-09-17"
+                overview:
+                  type: string
+                  example: "The near future, a time when both hope and hardships drive humanity to look to the stars and beyond. While a mysterious phenomenon menaces to destroy life on planet Earth."
+        400:
+          description: "Error during getting movies"
+  /movies/{id}:
+    get:
+      tags:
+      - "movies"
+      summary: "Gets a movie by id"
+      operationId: "getMovieById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Gets movie by id"
+        required: true
+        type: "boolean"
+      responses:
+        200:
+          description: "Successfully get movie by id"
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                  example: "5e394c208c4e6b7a3ce6bcdd"
+                genre_ids:
+                  type: array
+                  items:
+                    type: number
+                    example: 16, 18
+                popularity:
+                  type: number
+                  example: 437.351,
+                vote_count:
+                  type: number
+                  example: 2192
+                video:
+                  type: number
+                  example: false,
+                poster_path:
+                  type: string
+                  example: "/xBHvZcjRiWyobQ9kxBhO6B2dtRI.jpg"
+                id:
+                  type: number
+                  example: 419704,
+                adult:
+                  type: boolean
+                  example: false,
+                backdrop_path:
+                  type: string
+                  example: "/5BwqwxMEjeFtdknRV792Svo0K1v.jpg"
+                original_language:
+                  type: string
+                  example: "en"
+                original_title:
+                  type: string
+                  example: "Ad Astra"
+                title:
+                  type: string
+                  example: "Ad Astra"
+                vote_average:
+                  type: number
+                  example: 6
+                release_date:
+                  type: string
+                  example: "2019-09-17"
+                overview:
+                  type: string
+                  example: "The near future, a time when both hope and hardships drive humanity to look to the stars and beyond. While a mysterious phenomenon menaces to destroy life on planet Earth."
+        400:
+          description: "Error during getting movies by id"
+        404:
+          description: "Movie not found"
+  /genres:
+    get:
+      tags:
+      - "genres"
+      summary: "Get genres"
+      description: "Gets all genres"
+      operationId: "getGenres"
+      responses:
+        200:
+          description: "Successfully get genres"
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: number
+                  example: 16
+                name:
+                  type: string
+                  example: "Animation"
+        400:
+          description: "Error during getting genres"
+  /genres/{id}:
+    get:
+      tags:
+      - "genres"
+      summary: "Gets a genre by id"
+      operationId: "getGenreById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Gets genre by id"
+        required: true
+        type: "boolean"
+      responses:
+        200:
+          description: "Successfully get movie by id"
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: number
+                  example: 16
+                name:
+                  type: string
+                  example: "Animation"
+        400:
+          description: "Error during getting movies by id"
+        404:
+          description: "Genre not found"
+definitions:
+  Movie:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+      title:
+        type: "string"
+      overview:
+        type: "string"
+      release_date:
+        type: "number"
+      vote_average:
+        type: "number"
+      popularity:
+        type: "number"
+      original_langiage:
+        type: "string"
+      vote_count:
+        type: "number"
+      original_title:
+        type: "string"
+      poster_path:
+        type: "string"
+      backdrop_path:
+        type: "string"
+      video:
+        type: "boolean"
+      adult:
+        type: "boolean"
+  Genre:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+      name:
+        type: "string"
