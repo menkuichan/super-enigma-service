@@ -82,55 +82,7 @@ paths:
           schema:
             type: array
             items:
-              type: object
-              properties:
-                _id:
-                  type: string
-                  example: "5e394c208c4e6b7a3ce6bcdd"
-                genre_ids:
-                  type: array
-                  items:
-                    type: number
-                    example: 16, 18
-                popularity:
-                  type: number
-                  example: 437.351,
-                vote_count:
-                  type: number
-                  example: 2192
-                video:
-                  type: number
-                  example: false,
-                poster_path:
-                  type: string
-                  example: "/xBHvZcjRiWyobQ9kxBhO6B2dtRI.jpg"
-                id:
-                  type: number
-                  example: 419704,
-                adult:
-                  type: boolean
-                  example: false,
-                backdrop_path:
-                  type: string
-                  example: "/5BwqwxMEjeFtdknRV792Svo0K1v.jpg"
-                original_language:
-                  type: string
-                  example: "en"
-                original_title:
-                  type: string
-                  example: "Ad Astra"
-                title:
-                  type: string
-                  example: "Ad Astra"
-                vote_average:
-                  type: number
-                  example: 6
-                release_date:
-                  type: string
-                  example: "2019-09-17"
-                overview:
-                  type: string
-                  example: "The near future, a time when both hope and hardships drive humanity to look to the stars and beyond. While a mysterious phenomenon menaces to destroy life on planet Earth."
+              $ref: '#/definitions/Genre'
         400:
           description: "Error during getting movies"
   /movies/{id}:
@@ -149,57 +101,7 @@ paths:
         200:
           description: "Successfully get movie by id"
           schema:
-            type: array
-            items:
-              type: object
-              properties:
-                _id:
-                  type: string
-                  example: "5e394c208c4e6b7a3ce6bcdd"
-                genre_ids:
-                  type: array
-                  items:
-                    type: number
-                    example: 16, 18
-                popularity:
-                  type: number
-                  example: 437.351,
-                vote_count:
-                  type: number
-                  example: 2192
-                video:
-                  type: number
-                  example: false,
-                poster_path:
-                  type: string
-                  example: "/xBHvZcjRiWyobQ9kxBhO6B2dtRI.jpg"
-                id:
-                  type: number
-                  example: 419704,
-                adult:
-                  type: boolean
-                  example: false,
-                backdrop_path:
-                  type: string
-                  example: "/5BwqwxMEjeFtdknRV792Svo0K1v.jpg"
-                original_language:
-                  type: string
-                  example: "en"
-                original_title:
-                  type: string
-                  example: "Ad Astra"
-                title:
-                  type: string
-                  example: "Ad Astra"
-                vote_average:
-                  type: number
-                  example: 6
-                release_date:
-                  type: string
-                  example: "2019-09-17"
-                overview:
-                  type: string
-                  example: "The near future, a time when both hope and hardships drive humanity to look to the stars and beyond. While a mysterious phenomenon menaces to destroy life on planet Earth."
+            $ref: '#/definitions/Movie'
         400:
           description: "Error during getting movies by id"
         404:
@@ -217,14 +119,7 @@ paths:
           schema:
             type: array
             items:
-              type: object
-              properties:
-                id:
-                  type: number
-                  example: 16
-                name:
-                  type: string
-                  example: "Animation"
+              $ref: '#/definitions/Genre'
         400:
           description: "Error during getting genres"
   /genres/{id}:
@@ -243,16 +138,7 @@ paths:
         200:
           description: "Successfully get movie by id"
           schema:
-            type: array
-            items:
-              type: object
-              properties:
-                id:
-                  type: number
-                  example: 16
-                name:
-                  type: string
-                  example: "Animation"
+            $ref: '#/definitions/Genre'
         400:
           description: "Error during getting movies by id"
         404:
