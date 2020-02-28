@@ -10,6 +10,7 @@ const createFindObject = (queryObject) => {
       switch (key) {
         case 'popularity':
         case 'vote_count':
+        case 'vote_average':
           if (Number(queryObject[key])) result[key] = { $gt: queryObject[key] };
           break;
         case 'title':
