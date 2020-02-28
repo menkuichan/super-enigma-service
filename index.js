@@ -6,6 +6,9 @@ const koaError = require('koa-error');
 
 const app = new Koa();
 const router = new Router();
+const cors = require('@koa/cors');
+
+app.use(cors());
 
 const { getMovies, getMovieById } = require('./src/controllers/movie');
 const { getGenres, getGenreById } = require('./src/controllers/genre');
