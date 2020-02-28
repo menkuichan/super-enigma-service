@@ -27,7 +27,7 @@ const createFindObject = (queryObject) => {
           result[key] = (queryObject[key] === 'true');
           break;
         case 'genre':
-          result.genre_ids = { $in: [queryObject[key]] };
+          result.genre_ids = { $all: [...queryObject[key]] };
           break;
         case 'lang':
           result.original_language = queryObject[key];
