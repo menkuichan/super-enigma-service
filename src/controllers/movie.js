@@ -60,7 +60,6 @@ const getMovies = async (ctx) => {
     const {
       sortBy, page, perPage, ...queryObject
     } = ctx.query;
-
     const count = await Movie.countDocuments(createFindObject(queryObject));
     const movies = await Movie.find(createFindObject(queryObject))
       .skip((page * perPage) - perPage)
