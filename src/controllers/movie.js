@@ -26,9 +26,11 @@ const createFindObject = (queryObject) => {
         case 'video':
           result[key] = (queryObject[key] === 'true');
           break;
-        case 'genre':
-          result.genre_ids = { $all: [...queryObject[key]] };
+        case 'genre': {
+          const ids = queryObject[key] ? queryObject[key].split(',') : [];
+          result.genre_ids = { $all: ids };
           break;
+        }
         case 'lang':
           result.original_language = queryObject[key];
           break;
