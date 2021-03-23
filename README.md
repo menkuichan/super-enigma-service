@@ -12,7 +12,7 @@ Download Node.js not lower than version 8.10, [Yarn](https://yarnpkg.com/) and [
 
 ### Clone
 
-Clone this repo to your local machine using `https://github.com/IlonaMenkui/super-enigma-service.git`
+Clone this repo to your local machine using `https://github.com/menkuichan/super-enigma-service.git`
 
 ### Declare environment variables in .env file
 
